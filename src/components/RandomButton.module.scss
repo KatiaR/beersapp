@@ -1,0 +1,9 @@
+.button {
+	padding: 0.7rem 2rem 0.2rem;
+	border-radius: 0.5rem;
+	background: none;
+
+	&:active {
+		background: #eff5ff;
+	}
+}

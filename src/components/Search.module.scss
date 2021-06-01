@@ -1,0 +1,11 @@
+.seachField {
+	border-radius: 5rem;
+	padding: 0.7rem 5rem 0.2rem 1rem;
+	text-align: left;
+	background: none;
+
+	&:focus {
+		background: #eff5ff;
+		outline: none;
+	}
+}

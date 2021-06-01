@@ -1,0 +1,25 @@
+.card {
+	margin: 2rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2rem;
+
+	.imageBox {
+		img {
+			width: 5rem;
+		}
+	}
+
+	.articleBox {
+		width: 60%;
+	}
+
+	ul {
+		padding: 0;
+		list-style: none;
+
+		li {
+			padding-top: 1rem;
+		}
+	}
+}
