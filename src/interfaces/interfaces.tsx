@@ -1,8 +1,4 @@
-interface IObjectKeys {
-	[key: string]: string | number;
-}
-
-export interface IDescription extends IObjectKeys {
+export interface IDescription {
 	id: string;
 	name: string;
 	first_brewed: string;
@@ -13,9 +9,20 @@ export interface IDescription extends IObjectKeys {
 	tagline: string;
 }
 
-export interface IDescriptionDisplayed {
-	first_brewed: string;
-	abv: string;
-	ibu: string;
+export interface IDescriptionSelected {
+	id: string;
+	name: string;
+	image_url: string;
 	description: string;
+}
+
+export interface IDescriptionDisplayed {
+	item: IDescriptionSelected;
+}
+
+export interface IDescriptionState {
+	data?: IDescription[];
+	status: 'idle' | 'loading' | 'success' | 'failed';
+	selectedItem: IDescription | undefined;
+	selectedItemStatus: typeof status;
 }

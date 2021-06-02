@@ -1,0 +1,40 @@
+.listBox {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	overflow: hidden;
+
+	.listDescription {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 2rem;
+
+		img {
+			width: 3rem;
+			height: 8rem;
+			object-fit: contain;
+		}
+	}
+
+	button {
+		background: none;
+		border: none;
+		i {
+			font-size: 5rem;
+			&:hover {
+				color: blue;
+			}
+			&:active {
+				color: rgb(109, 109, 221);
+			}
+		}
+	}
+
+	.truncate {
+		width: 40rem;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}

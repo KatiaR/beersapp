@@ -1,8 +1,11 @@
 import axios from 'axios';
+import { IDescription } from '../interfaces/interfaces';
 
-export const getBeers = async (beer: string) => {
+export const getBeers = async () => {
 	try {
-		const response = await axios.get(`https://api.punkapi.com/v2/beers`);
+		const response = await axios.get<IDescription[]>(
+			`https://api.punkapi.com/v2/beers`
+		);
 		return response.data;
 	} catch (error) {
 		console.log(error);
@@ -12,10 +15,10 @@ export const getBeers = async (beer: string) => {
 
 export const getBeer = async (id: string) => {
 	try {
-		const response = await axios.get(
-			`https://api.punkapi.com/v2/beers${id}`
+		const response = await axios.get<IDescription[]>(
+			`https://api.punkapi.com/v2/beers/${id}`
 		);
-		return response.data;
+		return response.data[0];
 	} catch (error) {
 		console.log(error);
 	}

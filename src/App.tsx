@@ -1,18 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { CardDescription } from './components/CardDescription';
+import { Switch, Route } from 'react-router-dom';
 import { SearchBox } from './components/SearchBox';
+import { ContentBox } from './components/ContentBox';
 import styles from './App.module.scss';
+import { CardDescription } from './components/CardDescription';
 
 function App() {
 	return (
 		<div className={styles.app}>
 			<Switch>
-				<Route path="/">
+				<Route path="/beers.com" exact>
 					<SearchBox />
+					<ContentBox />
 				</Route>
-				<Route path="/beers/:id"></Route>
+				<Route path="/beers.com/:id">
+					<CardDescription />
+				</Route>
 			</Switch>
 		</div>
 	);
