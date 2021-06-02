@@ -37,3 +37,15 @@ export const getBeersPage = async (page: string) => {
 	}
 	return;
 };
+
+export const getBeersByName = async (name: string) => {
+	try {
+		const response = await axios.get<IDescription[]>(
+			`https://api.punkapi.com/v2/beers?beer_name=${name}`
+		);
+		return response.data;
+	} catch (error) {
+		console.log(error);
+	}
+	return;
+};

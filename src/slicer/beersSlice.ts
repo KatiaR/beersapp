@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getBeers, getBeer } from '../api/beers';
+import { getBeers, getBeer, getBeersByName } from '../api/beers';
 import { RootState } from '../app/store';
-import { IDescriptionState, IDescription } from '../interfaces/interfaces';
+import { IDescriptionState } from '../interfaces/interfaces';
 
 const initialState: IDescriptionState = {
 	data: [],
@@ -19,6 +19,14 @@ export const getBeerAsync = createAsyncThunk(
 	'beer/fetchbeer',
 	async (id: string) => {
 		const response = await getBeer(id);
+		return response;
+	}
+);
+
+export const getBeersByNameAsync = createAsyncThunk(
+	'beersName/fetchbeer',
+	async (name: string) => {
+		const response = await getBeersByName(name);
 		return response;
 	}
 );
@@ -49,6 +57,14 @@ export const beerSlice = createSlice({
 			.addCase(getBeerAsync.fulfilled, (state, action) => {
 				state.selectedItemStatus = 'success';
 				state.selectedItem = action.payload;
+			})
+			.addCase(getBeersByNameAsync.pending, (state) => {
+				state.status = 'loading';
+				state.data = [];
+			})
+			.addCase(getBeersByNameAsync.fulfilled, (state, action) => {
+				state.status = 'success';
+				state.data = action.payload;
 			});
 	},
 });
