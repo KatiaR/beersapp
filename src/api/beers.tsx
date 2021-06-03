@@ -1,18 +1,6 @@
 import axios from 'axios';
 import { IDescription } from '../interfaces/interfaces';
 
-export const getBeers = async () => {
-	try {
-		const response = await axios.get<IDescription[]>(
-			`https://api.punkapi.com/v2/beers`
-		);
-		return response.data;
-	} catch (error) {
-		console.log(error);
-	}
-	return;
-};
-
 export const getBeer = async (id: string) => {
 	try {
 		const response = await axios.get<IDescription[]>(
@@ -20,32 +8,22 @@ export const getBeer = async (id: string) => {
 		);
 		return response.data[0];
 	} catch (error) {
-		console.log(error);
+		alert('Something went wrong');
 	}
 	return;
 };
 
-export const getBeersPage = async (page: string) => {
+export const getBeersPage = async (page: string = '1', name: string = '') => {
 	const beersPerPage = 3;
-	try {
-		const response = await axios.get(
-			`https://api.punkapi.com/v2/beers?page=${page}&per_page=${beersPerPage}`
-		);
-		return response.data;
-	} catch (error) {
-		console.log(error);
+	let url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${beersPerPage}`;
+	if (name) {
+		url += `&beer_name=${name}`;
 	}
-	return;
-};
-
-export const getBeersByName = async (name: string) => {
 	try {
-		const response = await axios.get<IDescription[]>(
-			`https://api.punkapi.com/v2/beers?beer_name=${name}`
-		);
-		return response.data;
+		const response = await axios.get<IDescription[]>(url);
+		return { page, data: response.data };
 	} catch (error) {
-		console.log(error);
+		alert('Something went wrong');
 	}
-	return;
+	return { page, data: [] };
 };

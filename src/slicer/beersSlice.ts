@@ -1,19 +1,26 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getBeers, getBeer, getBeersByName } from '../api/beers';
+import { getBeer, getBeersPage } from '../api/beers';
 import { RootState } from '../app/store';
 import { IDescriptionState } from '../interfaces/interfaces';
+
+const initialPage = '1';
 
 const initialState: IDescriptionState = {
 	data: [],
 	status: 'idle',
 	selectedItem: undefined,
 	selectedItemStatus: 'idle',
+	page: initialPage,
+	search: '',
 };
 
-export const getBeersAsync = createAsyncThunk('beers/fetchbeer', async () => {
-	const response = await getBeers();
-	return response;
-});
+export const getBeersAsync = createAsyncThunk(
+	'beers/fetchbeer',
+	async (page: string = initialPage) => {
+		const response = await getBeersPage(page);
+		return response;
+	}
+);
 
 export const getBeerAsync = createAsyncThunk(
 	'beer/fetchbeer',
@@ -25,8 +32,8 @@ export const getBeerAsync = createAsyncThunk(
 
 export const getBeersByNameAsync = createAsyncThunk(
 	'beersName/fetchbeer',
-	async (name: string) => {
-		const response = await getBeersByName(name);
+	async ({ page = '1', search = '' }: { page: string; search?: string }) => {
+		const response = await getBeersPage(page, search);
 		return response;
 	}
 );
@@ -38,6 +45,10 @@ export const beerSlice = createSlice({
 		clearData: (state) => {
 			state.status = 'idle';
 			state.data = [];
+			state.page = initialPage;
+		},
+		searchChange: (state, { payload }) => {
+			state.search = payload;
 		},
 	},
 	extraReducers: (builder) => {
@@ -45,10 +56,12 @@ export const beerSlice = createSlice({
 			.addCase(getBeersAsync.pending, (state) => {
 				state.status = 'loading';
 				state.data = [];
+				state.page = initialPage;
 			})
 			.addCase(getBeersAsync.fulfilled, (state, action) => {
 				state.status = 'success';
-				state.data = action.payload;
+				state.data = action.payload!.data;
+				state.page = action.payload!.page;
 			})
 			.addCase(getBeerAsync.pending, (state) => {
 				state.selectedItemStatus = 'loading';
@@ -61,16 +74,20 @@ export const beerSlice = createSlice({
 			.addCase(getBeersByNameAsync.pending, (state) => {
 				state.status = 'loading';
 				state.data = [];
+				state.page = initialPage;
 			})
 			.addCase(getBeersByNameAsync.fulfilled, (state, action) => {
 				state.status = 'success';
-				state.data = action.payload;
+				state.data = action.payload!.data;
+				state.page = action.payload!.page;
 			});
 	},
 });
 
-export const { clearData } = beerSlice.actions;
+export const { clearData, searchChange } = beerSlice.actions;
 export const selectData = (state: RootState) => state.beers.data;
+export const selectPage = (state: RootState) => state.beers.page;
+export const selectSearch = (state: RootState) => state.beers.search;
 export const selectStatus = (state: RootState) => state.beers.status;
 export const selectedItemData = (state: RootState) => state.beers.selectedItem;
 export const selectedItemStatus = (state: RootState) =>

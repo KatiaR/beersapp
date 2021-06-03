@@ -15,7 +15,7 @@ export function RandomButton() {
 	const dispatch = useAppDispatch();
 	const handleClick = () => {
 		dispatch(getBeerAsync(randomSelectedId));
-		history.push(`/beers.com/${randomSelectedId}`);
+		history.push(`/beers/${randomSelectedId}`);
 	};
 
 	return (

@@ -1,0 +1,56 @@
+@mixin effect {
+	&:hover {
+		background: rgb(248, 248, 243);
+	}
+	&:active {
+		background: rgb(246, 246, 225);
+	}
+}
+
+@mixin paddingList {
+	padding: 0.5rem 1rem;
+}
+
+.current {
+	background-color: rgb(204, 210, 216);
+}
+
+.paginationBox {
+	display: flex;
+	justify-content: center;
+	list-style-type: none;
+	li {
+		border-right: 1px solid black;
+		border-top: 1px solid black;
+		border-bottom: 1px solid black;
+		cursor: pointer;
+
+		@include paddingList;
+		@include effect;
+	}
+
+	button {
+		background: none;
+		@include paddingList;
+		@include effect;
+		cursor: pointer;
+	}
+	.nextButton {
+		border-left: none;
+		border-radius: 0 0.3rem 0.3rem 0;
+	}
+	.prevButton {
+		border-radius: 0.3rem 0 0 0.3rem;
+	}
+}
+
+@media (max-width: 600px) {
+	.paginationBox {
+		li {
+			padding: 0.2rem 0.5rem;
+		}
+		button {
+			padding: 0.2rem 0.5rem;
+		}
+	}
+}

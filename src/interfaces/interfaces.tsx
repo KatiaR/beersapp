@@ -8,16 +8,13 @@ export interface IDescription {
 	description: string;
 	tagline: string;
 }
-
-export interface IDescriptionSelected {
-	id: string;
-	name: string;
-	image_url: string;
-	description: string;
-}
-
 export interface IDescriptionDisplayed {
-	item: IDescriptionSelected;
+	item: {
+		id: string;
+		name: string;
+		image_url: string;
+		description: string;
+	};
 }
 
 export interface IDescriptionState {
@@ -25,4 +22,6 @@ export interface IDescriptionState {
 	status: 'idle' | 'loading' | 'success' | 'failed';
 	selectedItem: IDescription | undefined;
 	selectedItemStatus: typeof status;
+	page: string;
+	search: '';
 }

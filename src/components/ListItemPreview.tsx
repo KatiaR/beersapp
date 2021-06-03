@@ -12,7 +12,7 @@ export function ListItemPeview(props: IDescriptionDisplayed) {
 
 	const clickHandler = () => {
 		dispatch(getBeerAsync(id));
-		history.push(`/beers.com/${id}`);
+		history.push(`/beers/${id}`);
 	};
 	return (
 		<section className={style.listBox}>
